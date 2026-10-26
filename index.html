@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>EPTV — État des Frais de Mission</title>
+  <!-- Librairie SheetJS pour l'import de la base du personnel Excel (sdmpvm) -->
+  <script src="https://cdn.sheetjs.com/xlsx-0.20.1/package/dist/xlsx.full.min.js"></script>
+</head>
+<body>
+
+  <!-- Liste des destinations (Wilayas) -->
+  <datalist id="dlDestinations">
+    <option value="ADRAR"><option value="CHLEF"><option value="LAGHOUAT"><option value="OUM EL BOUAGHI">
+    <option value="BATNA"><option value="BEJAIA"><option value="BISKRA"><option value="BECHAR">
+    <option value="BLIDA"><option value="BOUIRA"><option value="TAMANRASSET"><option value="TEBESSA">
+    <option value="TLEMCEN"><option value="TIARET"><option value="TIZI-OUZOU"><option value="ALGER">
+    <option value="DJELFA"><option value="JIJEL"><option value="SETIF"><option value="SAIDA">
+    <option value="SKIKDA"><option value="SIDI BEL ABBES"><option value="ANNABA"><option value="GUELMA">
+    <option value="CONSTANTINE"><option value="MEDEA"><option value="MOSTAGANEM"><option value="M'SILA">
+    <option value="MASCARA"><option value="OUARGLA"><option value="ORAN"><option value="EL BAYADH">
+    <option value="ILLIZI"><option value="BORDJ BOU ARRERIDJ"><option value="BOUMERDES"><option value="EL TARF">
+    <option value="TINDOUF"><option value="TISSEMSILT"><option value="EL OUED"><option value="KHENCHELA">
+    <option value="SOUK AHRAS"><option value="TIPAZA"><option value="MILA"><option value="AIN DEFLA">
+    <option value="NAAMA"><option value="AIN TEMOUCHENT"><option value="GHARDAIA"><option value="RELIZANE">
+  </datalist>
+
+  <!-- 1. BARRE DE NAVIGATION SAAS ÉPURÉE -->
+  <header class="saas-navbar">
+    <div class="saas-title-group">
+      <h1 class="saas-title">EPTV — État des Frais de Mission</h1>
+      <span class="db-pill" id="badgeDbCount">Base Personnel : 0 agent</span>
+    </div>
+    <div class="saas-toolbar-actions">
+      <label class="btn-saas btn-import" title="Importer la base de données du personnel depuis votre fichier Excel">
+        📂 Importer Base Excel
+        <input type="file" id="fileExcelInput" accept=".xlsm,.xlsx,.xls,.csv" style="display:none;">
+      </label>
+      <button class="btn-saas btn-add" id="btnInsererLigne">+ Insérer une ligne</button>
+      <button class="btn-saas btn-delete" id="btnSupprimerLigne">- Supprimer la ligne</button>
+      <button class="btn-saas btn-clear" id="btnReinitialiser">🧹 Réinitialiser</button>
+      <button class="btn-saas btn-print" id="btnImprimer">🖨️ Imprimer / PDF A4</button>
+    </div>
+  </header>
+
+  <!-- 2. ESPACE DE TRAVAIL & FEUILLE A4 IMPRIMABLE -->
+  <main class="a4-workspace">
+    <div class="a4-sheet">
+
+      <!-- BANDEAU SOUS-DIRECTION -->
+      <div class="banner-direction" contenteditable="true">
+        DST-SOUS DIRECTION DES MOYENS DE PRODUCTION VIDEO MOBILE
+      </div>
+
+      <!-- CARTOUCHE D'EN-TÊTE DE MISSION -->
+      <table class="cartouche-table">
+        <colgroup>
+          <col class="c-nom">
+          <col class="c-fonction">
+          <col class="c-categorie">
+          <col class="c-njours">
+          <col class="c-nrepas">
+          <col class="c-pctjour">
+          <col class="c-repas">
+          <col class="c-pp">
+          <col class="c-net">
+          <col class="c-mat">
+          <col class="c-emargement">
+        </colgroup>
+        <tbody>
+          <!-- Ligne 1 : DESTINATION (vide par défaut) & FRAIS DE MISSION -->
+          <tr>
+            <td class="b-cell bg-head t-left">DESTINATION:</td>
+            <td class="b-cell t-center" colspan="6">
+              <input type="text" id="inpDestination" class="excel-input t-center" list="dlDestinations" value="" placeholder="Saisir ou choisir la destination..." />
+            </td>
+            <td></td>
+            <td class="b-cell bg-head t-center" colspan="2" style="font-size:8pt;">FRAIS DE MISSION:</td>
+            <td class="b-cell t-center">
+              <select id="cellAI1_Zone" class="excel-select t-center">
+                <option value="NORD" selected>NORD</option>
+                <option value="SUD">SUD</option>
+              </select>
+            </td>
+          </tr>
+
+          <!-- Ligne 2 : EVENEMENT (vide par défaut) & TAUX (100% / 40%) -->
+          <tr>
+            <td class="b-cell bg-head t-left">EVENEMENT:</td>
+            <td class="b-cell t-center" colspan="6">
+              <input type="text" id="inpEvenement" class="excel-input t-center" value="" placeholder="Saisir l'événement..." />
+            </td>
+            <td></td>
+            <td class="b-cell t-center" colspan="3" rowspan="2" style="font-size:13pt; font-weight:700;">
+              <select id="cellAK1_Taux" class="excel-select t-center" style="font-size:13pt; font-weight:700;">
+                <option value="1" selected>100%</option>
+                <option value="0.4">40%</option>
+              </select>
+            </td>
+          </tr>
+
+          <!-- Ligne 3 : DATE DU (Calendrier) AU (Calendrier >= Départ) -->
+          <tr>
+            <td class="b-cell bg-head t-left">DATE:</td>
+            <td class="b-cell t-center">DU</td>
+            <td class="b-cell t-center" colspan="2">
+              <div class="date-picker-cell">
+                <span class="date-display-text" id="labelDateDebut">
+                  <span class="val-date"></span>
+                  <span class="cal-arrow">▾</span>
+                </span>
+                <input type="date" id="dateDebutPicker" class="date-native-input" />
+              </div>
+            </td>
+            <td class="b-cell t-center">AU</td>
+            <td class="b-cell t-center" colspan="2">
+              <div class="date-picker-cell">
+                <span class="date-display-text" id="labelDateFin">
+                  <span class="val-date"></span>
+                  <span class="cal-arrow">▾</span>
+                </span>
+                <input type="date" id="dateFinPicker" class="date-native-input" />
+              </div>
+            </td>
+            <td></td>
+          </tr>
+
+          <!-- Ligne 4 : HEURE DE RETOUR (3 horaires prédéfinis : 12:00, 15:00, 20:00) -->
+          <tr style="height: 5.2mm;">
+            <td colspan="5"></td>
+            <td class="b-cell t-center" colspan="2" style="padding:0;">
+              <div class="heure-select-wrapper">
+                <select id="cellN4_HeureFin">
+                  <option value="12:00" selected>12:00</option>
+                  <option value="15:00">15:00</option>
+                  <option value="20:00">20:00</option>
+                </select>
+              </div>
+            </td>
+            <td colspan="4"></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <!-- TABLEAU PRINCIPAL DES MISSIONNAIRES (100% Vierge à l'origine) -->
+      <table class="mission-table" id="tableMission">
+        <colgroup>
+          <col class="c-nom">
+          <col class="c-fonction">
+          <col class="c-categorie">
+          <col class="c-njours">
+          <col class="c-nrepas">
+          <col class="c-pctjour">
+          <col class="c-repas">
+          <col class="c-pp">
+          <col class="c-net">
+          <col class="c-mat">
+          <col class="c-emargement">
+        </colgroup>
+        <thead>
+          <tr>
+            <th>NOM &amp; PRENOM</th>
+            <th>FONCTION</th>
+            <th>CATEGORIE</th>
+            <th>N JOURS</th>
+            <th>N REPAS</th>
+            <th>% DE JOUR</th>
+            <th>REPAS</th>
+            <th>PP</th>
+            <th>NET</th>
+            <th>MAT</th>
+            <th>EMARGEMENT</th>
+          </tr>
+        </thead>
+        <tbody id="tbodyMission"></tbody>
+        <tfoot>
+          <tr class="total-row">
+            <td colspan="5" style="border:none;"></td>
+            <td colspan="2" class="total-title">TOTAL</td>
+            <!-- Somme globale redimensionnée à 100% sur les colonnes PP + NET + MAT -->
+            <td colspan="3" class="total-amount" id="cellP41_Total">0 DA</td>
+            <td style="border:none;"></td>
+          </tr>
+        </tfoot>
+      </table>
+
+      <!-- PIED DE PAGE -->
+      <div class="footer-section">
+        <div class="arrete-label">Arrêter le présent état à la somme de :</div>
+        <div class="arrete-words" id="cellA44_Lettres">Zéro Dinars</div>
+        <div class="signature-ordonnateur">L'Ordonnateur</div>
+      </div>
+
+    </div>
+  </main>
+
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>

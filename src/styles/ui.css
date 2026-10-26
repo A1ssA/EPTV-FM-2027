@@ -1,0 +1,87 @@
+    /* ==========================================================================
+       2. INTERFACE SAAS ÉLÉGANTE (MASQUÉE À L'IMPRESSION)
+       ========================================================================== */
+    .saas-navbar {
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+      color: #ffffff;
+      padding: 14px 28px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      box-shadow: 0 4px 20px rgba(15, 23, 42, 0.22);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .saas-title-group {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .saas-title {
+      font-size: 16px;
+      font-weight: 600;
+      letter-spacing: 0.3px;
+      margin: 0;
+      color: #f8fafc;
+    }
+
+    .db-pill {
+      background: rgba(56, 189, 248, 0.14);
+      border: 1px solid rgba(56, 189, 248, 0.35);
+      color: #bae6fd;
+      padding: 4px 12px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 500;
+    }
+
+    .saas-toolbar-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .btn-saas {
+      border: 1px solid transparent;
+      padding: 8px 14px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: 500;
+      font-size: 12.5px;
+      font-family: inherit;
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      transition: all 0.18s ease;
+      color: #ffffff;
+      background: #1e293b;
+    }
+
+    .btn-saas:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.18);
+    }
+
+    .btn-import  { background: #2563eb; }
+    .btn-import:hover { background: #1d4ed8; }
+
+    .btn-add     { background: #334155; border-color: #475569; }
+    .btn-add:hover { background: #475569; }
+
+    .btn-delete  { background: #dc2626; }
+    .btn-delete:hover { background: #b91c1c; }
+
+    .btn-clear   { background: transparent; border-color: #64748b; color: #e2e8f0; }
+    .btn-clear:hover { background: #334155; color: #ffffff; }
+
+    .btn-print   { background: #059669; font-weight: 600; padding: 8px 18px; }
+    .btn-print:hover { background: #047857; }
+

@@ -1,0 +1,170 @@
+    /* ==========================================================================
+       4. STRUCTURE & BORDURES EXACTES DU MODÈLE EXCEL
+       ========================================================================== */
+    .banner-direction {
+      background-color: #EBEBEB;
+      border: 1pt solid #000000;
+      text-align: center;
+      font-family: "Calibri", Arial, sans-serif;
+      font-weight: 700;
+      font-size: 11pt;
+      height: 7.5mm;
+      line-height: 7.5mm;
+      letter-spacing: 0.2px;
+      margin-bottom: 3.5mm;
+    }
+
+    /* Grille de 11 colonnes commune à l'entête et au tableau */
+    col.c-nom        { width: 22.8%; }
+    col.c-fonction   { width: 22.2%; }
+    col.c-categorie  { width: 7.2%;  }
+    col.c-njours     { width: 5.7%;  }
+    col.c-nrepas     { width: 5.7%;  }
+    col.c-pctjour    { width: 6.7%;  }
+    col.c-repas      { width: 5.1%;  }
+    col.c-pp         { width: 4.4%;  }
+    col.c-net        { width: 6.0%;  }
+    col.c-mat        { width: 5.7%;  }
+    col.c-emargement { width: 8.5%;  }
+
+    table.cartouche-table {
+      width: 100%;
+      border-collapse: collapse;
+      table-layout: fixed;
+      margin-bottom: 0;
+    }
+
+    table.cartouche-table td {
+      font-family: "Calibri", Arial, sans-serif;
+      font-size: 9.5pt;
+      font-weight: 700;
+      height: 5.4mm;
+      padding: 0 4px;
+      vertical-align: middle;
+    }
+
+    .b-cell   { border: 0.75pt solid #000000; }
+    .bg-head  { background-color: #EBEBEB; }
+    .t-left   { text-align: left; }
+    .t-center { text-align: center; }
+    .t-right  { text-align: right; }
+
+    /* Tableau Principal */
+    table.mission-table {
+      width: 100%;
+      border-collapse: collapse;
+      table-layout: fixed;
+    }
+
+    table.mission-table thead th {
+      background-color: #EBEBEB;
+      border: 0.75pt solid #000000;
+      font-family: "Calibri", Arial, sans-serif;
+      font-size: 8.5pt;
+      font-weight: 700;
+      text-align: center;
+      vertical-align: middle;
+      height: 6.4mm;
+      padding: 0 2px;
+      white-space: nowrap;
+      overflow: hidden;
+    }
+
+    table.mission-table tbody tr {
+      height: 7.6mm;
+      background-color: #ffffff;
+    }
+
+    table.mission-table tbody td {
+      border: 0.75pt solid #000000;
+      background-color: #ffffff;
+      font-family: "Calibri", Arial, sans-serif;
+      font-size: 8.8pt;
+      vertical-align: middle;
+      padding: 0 3px;
+      white-space: nowrap;
+      overflow: hidden;
+    }
+
+    td.cell-poste {
+      font-weight: 400;
+      text-align: center;
+      font-size: 8.4pt;
+    }
+
+    td.cell-num {
+      font-weight: 400;
+      text-align: center;
+      font-size: 8.8pt;
+    }
+
+    /* Colonne NET en BLANC */
+    td.cell-net {
+      background-color: #ffffff !important;
+      font-weight: 700;
+      text-align: center;
+      font-size: 8.8pt;
+    }
+
+    td.cell-mat {
+      font-weight: 400;
+      text-align: center;
+      font-size: 8.5pt;
+    }
+
+    /* Ligne TOTAL & Somme Globale redimensionnée à 100% */
+    tr.total-row td {
+      height: 7.2mm;
+      font-family: "Calibri", Arial, sans-serif;
+      font-weight: 700;
+      padding: 0;
+    }
+
+    td.total-title {
+      background-color: #DCDCDC;
+      border: 0.75pt solid #000000;
+      text-align: center;
+      font-size: 10.5pt;
+      letter-spacing: 0.4px;
+    }
+
+    td.total-amount {
+      background-color: #EBEBEB;
+      border: 0.75pt solid #000000;
+      text-align: center;
+      vertical-align: middle;
+      width: 100%;
+      font-size: 11pt; /* Taille 100% pleine largeur de la case fusionnée PP+NET+MAT */
+      font-weight: 800;
+      white-space: nowrap;
+      padding: 0 4px;
+    }
+
+    /* Pied de page */
+    .footer-section {
+      margin-top: 4mm;
+      font-family: "Calibri", Arial, sans-serif;
+    }
+
+    .arrete-label {
+      font-size: 12pt;
+      font-weight: 700;
+      margin-bottom: 1.5mm;
+    }
+
+    .arrete-words {
+      font-size: 11.5pt;
+      font-weight: 700;
+      font-style: italic;
+      margin-bottom: 4mm;
+      min-height: 5mm;
+    }
+
+    .signature-ordonnateur {
+      text-align: right;
+      padding-right: 22mm;
+      font-size: 11.5pt;
+      font-weight: 700;
+      text-decoration: underline;
+    }
+
